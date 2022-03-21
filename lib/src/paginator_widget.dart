@@ -1,17 +1,18 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:paginator/paginator.dart';
+import 'package:paginator/src/paginator.dart';
 
 class PaginatorWidget extends StatelessWidget {
-  // TODO: (PORELARTE) implement offsets
   final Paginator? paginator;
+  final double bottomExtent;
   final Widget child;
 
   const PaginatorWidget({
     Key? key,
     required this.paginator,
     required this.child,
+    this.bottomExtent = 240.0,
   }) : super(key: key);
 
   @override
@@ -22,10 +23,10 @@ class PaginatorWidget extends StatelessWidget {
 
         final maxScroll = notification.metrics.maxScrollExtent.ceil();
         final currentScroll = notification.metrics.pixels.ceil();
-        final atBottomEdge = maxScroll == currentScroll;
+        final atEdge = maxScroll <= (currentScroll + bottomExtent);
 
-        if (atBottomEdge) {
-          log('atBottomEdge: $atBottomEdge');
+        if (atEdge) {
+          log('atEdge: $atEdge');
 
           paginator?.maybeFetch();
         }

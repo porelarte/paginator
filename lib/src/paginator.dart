@@ -1,16 +1,18 @@
 import 'dart:developer';
 
 class Paginator {
-  final int pageCount;
   late final Function _fetchNextCallback;
 
   Paginator({
-    required this.pageCount,
     required Function(int) fetchNextCallback,
   }) : _fetchNextCallback = fetchNextCallback;
 
   bool _isBusy = false;
   bool get isBusy => _isBusy;
+
+  int _pageCount = 1;
+  int get pageCount => _pageCount;
+  void setPageCount(int value) => _pageCount = value;
 
   bool get hasReachedMax => pageCount - 1 == currentPage;
 
